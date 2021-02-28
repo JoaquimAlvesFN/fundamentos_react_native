@@ -40,22 +40,29 @@ const Cart: React.FC = () => {
 
   function handleIncrement(id: string): void {
     // TODO
+    increment(id);
   }
 
   function handleDecrement(id: string): void {
     // TODO
+    decrement(id);
   }
 
   const cartTotal = useMemo(() => {
     // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
+    const totalValue = products.reduce((sum, product) => {
+      return sum + product.price * product.quantity;
+    }, 0);
 
-    return formatValue(0);
+    return formatValue(totalValue);
   }, [products]);
 
   const totalItensInCart = useMemo(() => {
     // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
+    return products.reduce((sum, product) => {
+      return sum + product.quantity;
+    }, 0);
 
-    return 0;
   }, [products]);
 
   return (
@@ -63,7 +70,7 @@ const Cart: React.FC = () => {
       <ProductContainer>
         <ProductList
           data={products}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           ListFooterComponent={<View />}
           ListFooterComponentStyle={{
             height: 80,
